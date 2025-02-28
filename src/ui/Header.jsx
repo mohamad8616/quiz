@@ -1,4 +1,8 @@
+import { useQuiz } from "../context/context";
+
 function Header() {
+  const { questions } = useQuiz();
+  console.log(questions);
   return (
     <header className="h-auto bg-amber-50 px-7 py-7">
       <div className="flex flex-col items-center justify-between gap-4 space-y-2 divide-y divide-blue-400 text-start sm:flex-row sm:divide-x sm:divide-y-0">
@@ -14,7 +18,8 @@ function Header() {
         </section>
         <section className="w-full space-y-6 text-start text-sm sm:w-1/2 sm:px-4 sm:text-start">
           <p>
-            تعداد سوالات : <span className="font-semibold">20 </span>
+            تعداد سوالات :{" "}
+            <span className="font-semibold">{questions.length} </span>
           </p>{" "}
           <p>
             بالاترین امتیاز کسب شده <span className="font-semibold">0 </span>

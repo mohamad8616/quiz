@@ -146,6 +146,7 @@ const initialState = {
   questions,
   status: "ready",
   answer: null,
+  points: 0,
 };
 const QuizContext = createContext();
 function reducer(state, action) {
@@ -154,18 +155,22 @@ function reducer(state, action) {
       return { ...state, status: "ready" };
     case "start":
       return { ...state, status: "start" };
+    case "next":
+      if (state.index < state.questions.length)
+        return { ...state, index: state.index++, points: action.payload };
+      return state;
     default:
       return state;
   }
 }
 function QuizProvider({ children }) {
-  const [{ index, questions, status, answer }, dispatch] = useReducer(
+  const [{ index, questions, status, answer, points }, dispatch] = useReducer(
     reducer,
     initialState,
   );
   return (
     <QuizContext.Provider
-      value={{ index, status, questions, answer, dispatch }}
+      value={{ index, status, questions, answer, points, dispatch }}
     >
       {" "}
       {children}{" "}
