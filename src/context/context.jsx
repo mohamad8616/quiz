@@ -1,4 +1,4 @@
-import { Children, createContext, useReducer } from "react";
+import { Children, createContext, useContext, useReducer } from "react";
 
 const questions = [
   {
@@ -172,4 +172,10 @@ function QuizProvider({ children }) {
     </QuizContext.Provider>
   );
 }
-export QuizProvider
+function useQuiz() {
+  const context = useContext(QuizContext);
+  if (context === undefined)
+    return "QuizContext was used outside of QuizProvider";
+  return context;
+}
+export { QuizProvider, useQuiz };

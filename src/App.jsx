@@ -1,4 +1,4 @@
-import Header from "./ui/header";
+import Header from "./ui/Header";
 import AppLayout from "./ui/appLayout";
 import Progress from "./ui/Progress";
 import ProgressBar from "./ui/ProgressBar";
