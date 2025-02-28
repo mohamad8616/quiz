@@ -1,5 +1,15 @@
-function appLayout() {
-  return <div></div>;
+import Progress from "./Progress";
+import ProgressBar from "./ProgressBar";
+import Quiz from "./quiz";
+function AppLayout() {
+  return (
+    <section className="flex h-8/12 flex-col justify-between">
+      <Progress>
+        <ProgressBar />
+      </Progress>
+      <Quiz></Quiz>
+    </section>
+  );
 }
 
-export default appLayout;
+export default AppLayout;
