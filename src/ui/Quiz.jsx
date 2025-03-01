@@ -3,7 +3,7 @@ import { useQuiz } from "../context/context";
 import Button from "./Button";
 
 function Quiz() {
-  const { status, questions, index, points, dispatch } = useQuiz();
+  const { status, questions, index, points, dispatch, highScore } = useQuiz();
   const [selectedOption, setSelectedOption] = useState(null);
 
   const currQuestion = questions[index];
@@ -18,6 +18,19 @@ function Quiz() {
     selectedOption === correctOption
       ? dispatch({ type: "next", payload: points + currQuestion.points })
       : dispatch({ type: "next", payload: points });
+    setSelectedOption(null);
+  }
+  function handleFinishButton() {
+    dispatch({
+      type: "finish",
+      payload: points < highScore ? highScore : points,
+    });
+    setSelectedOption(null);
+
+    localStorage.setItem("highScore", points < highScore ? highScore : points);
+  }
+  function handleResetButton() {
+    dispatch({ type: "reset" });
     setSelectedOption(null);
   }
   return (
@@ -57,10 +70,32 @@ function Quiz() {
             ))}
           </div>
           {selectedOption !== null && (
-            <Button onClick={handleNextButton} type="next">
-              {index < 14 ? "بعدی" : "تمام"}
+            <Button
+              onClick={
+                index < questions.length - 1
+                  ? handleNextButton
+                  : handleFinishButton
+              }
+              type="next"
+            >
+              {index < questions.length - 1 ? "بعدی" : "تمام"}
             </Button>
           )}
+        </main>
+      )}
+      {status === "finished" && (
+        <main className="flex h-full w-8/12 flex-col justify-around text-start">
+          <div className="flex justify-around">
+            {" "}
+            <p className="text-sm font-semibold sm:text-base">
+              تعداد امتیاز کسب شده: <span>{points}</span>
+            </p>
+            <p className="text-sm font-semibold sm:text-base">
+              نتیجه آزمون:{" "}
+              <span>{points >= 80 ? "قبول شدید" : "مردود شدید"}</span>
+            </p>
+          </div>
+          <Button onClick={handleResetButton}>شروع دوباره</Button>
         </main>
       )}
     </div>

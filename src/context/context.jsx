@@ -141,12 +141,111 @@ const questions = [
     points: 20,
   },
 ];
+// const questions = [
+//   {
+//     question: "کدام نوع لباس زنانه برای مناسبت‌های رسمی مناسب‌تر است؟",
+//     options: ["لباس شب", "شلوار جین", "تی‌شرت", "کتان"],
+//     correctOption: 0,
+//     points: 30,
+//   },
+//   {
+//     question: "کدام پارچه برای لباس‌های تابستانی زنانه استفاده می‌شود؟",
+//     options: ["پشم", "پلی‌استر", "پنبه", "مخمل"],
+//     correctOption: 2,
+//     points: 20,
+//   },
+//   {
+//     question: "کدام لباس برای مراسم عروسی معمولاً انتخاب می‌شود؟",
+//     options: ["شلوار کوتاه", "کلاه", "لباس عروس", "پالتو"],
+//     correctOption: 2,
+//     points: 25,
+//   },
+//   {
+//     question: "کدام نوع کفش برای محیط کار مناسب‌تر است؟",
+//     options: ["صندل", "کتانی", "کفش پاشنه‌دار", "کفش تخت"],
+//     correctOption: 3,
+//     points: 35,
+//   },
+//   {
+//     question: "کدام رنگ برای لباس‌های رسمی انتخاب می‌شود؟",
+//     options: ["مشکی", "قرمز", "سبز", "زرد"],
+//     correctOption: 0,
+//     points: 15,
+//   },
+//   {
+//     question: "چه نوع لباس‌هایی برای فصل زمستان مناسب‌تر است؟",
+//     options: ["مانتو تابستانی", "پالتو", "پیراهن نازک", "لباس شنا"],
+//     correctOption: 1,
+//     points: 40,
+//   },
+//   {
+//     question: "کدام یک از لباس‌های زنانه برای مهمانی‌های غیررسمی مناسب است؟",
+//     options: [
+//       "پیراهن غیررسمی",
+//       "کت و شلوار",
+//       "پیراهن شبیه کت و شلوار",
+//       "پیراهن کوتاه",
+//     ],
+//     correctOption: 3,
+//     points: 20,
+//   },
+//   {
+//     question: "کدام نوع لباس برای ورزش مناسب‌تر است؟",
+//     options: ["لباس ورزشی", "پالتو", "جلیقه", "لباس شب"],
+//     correctOption: 0,
+//     points: 10,
+//   },
+//   {
+//     question: "چه نوع جواهراتی معمولاً با لباس رسمی ست می‌شود؟",
+//     options: ["گردنبند", "گوشواره", "دستبند", "همه موارد بالا"],
+//     correctOption: 3,
+//     points: 30,
+//   },
+//   {
+//     question: "کدام نوع کلاه برای فصل تابستان مناسب‌تر است؟",
+//     options: ["کلاه زمستانی", "کلاه آفتابی", "کلاه نقابدار", "کلاه شنا"],
+//     correctOption: 1,
+//     points: 25,
+//   },
+//   {
+//     question: "کدام نوع کیف برای مهمانی‌های رسمی مناسب است؟",
+//     options: ["کوله پشتی", "کیف دوشی", "کیف دستی", "کیف خرید"],
+//     correctOption: 2,
+//     points: 20,
+//   },
+//   {
+//     question: "کدام نوع شلوار برای محیط‌های کژوال مناسب است؟",
+//     options: ["شلوار جین", "شلوار پارچه‌ای", "شلوار رسمی", "شلوار ورزشی"],
+//     correctOption: 0,
+//     points: 15,
+//   },
+//   {
+//     question: "کدام نوع پارچه برای لباس‌های بهاره مناسب‌تر است؟",
+//     options: ["پشم", "کتان", "مخمل", "چرم"],
+//     correctOption: 1,
+//     points: 20,
+//   },
+//   {
+//     question: "کدام اکسسوری به یک لباس شب رسمی زیبایی می‌بخشد؟",
+//     options: ["کلاه", "شال", "گوشواره", "دستکش"],
+//     correctOption: 2,
+//     points: 35,
+//   },
+//   {
+//     question: "کدام نوع شال برای فصل زمستان مناسب‌تر است؟",
+//     options: ["شال پشمی", "شال نخی", "شال ابریشمی", "شال حریری"],
+//     correctOption: 0,
+//     points: 30,
+//   },
+// ];
+
 const initialState = {
   index: 0,
   questions,
   status: "ready",
   answer: null,
   points: 0,
+  highScore: 0,
 };
 const QuizContext = createContext();
 function reducer(state, action) {
@@ -159,18 +258,20 @@ function reducer(state, action) {
       if (state.index < state.questions.length)
         return { ...state, index: state.index++, points: action.payload };
       return state;
+    case "finish":
+      return { ...state, status: "finished", highScore: action.payload };
+    case "reset":
+      return initialState;
     default:
       return state;
   }
 }
 function QuizProvider({ children }) {
-  const [{ index, questions, status, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState,
-  );
+  const [{ index, questions, status, answer, points, highScore }, dispatch] =
+    useReducer(reducer, initialState);
   return (
     <QuizContext.Provider
-      value={{ index, status, questions, answer, points, dispatch }}
+      value={{ index, status, questions, answer, points, highScore, dispatch }}
     >
       {" "}
       {children}{" "}

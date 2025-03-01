@@ -1,8 +1,9 @@
 import { useQuiz } from "../context/context";
 
 function Header() {
-  const { questions } = useQuiz();
-  console.log(questions);
+  const { questions, highScore } = useQuiz();
+  const userHighScore = localStorage.getItem("highScore");
+
   return (
     <header className="h-auto bg-amber-50 px-7 py-7">
       <div className="flex flex-col items-center justify-between gap-4 space-y-2 divide-y divide-blue-400 text-start sm:flex-row sm:divide-x sm:divide-y-0">
@@ -22,7 +23,10 @@ function Header() {
             <span className="font-semibold">{questions.length} </span>
           </p>{" "}
           <p>
-            بالاترین امتیاز کسب شده <span className="font-semibold">0 </span>
+            بالاترین امتیاز کسب شده{" "}
+            <span className="font-semibold">
+              {userHighScore ? userHighScore : highScore}{" "}
+            </span>
           </p>
         </section>
       </div>
