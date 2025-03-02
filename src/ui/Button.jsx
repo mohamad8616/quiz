@@ -11,15 +11,15 @@ function Button({
     "flex cursor-pointer items-center text-sm justify-center rounded-full bg-orange-600 py-1 px-2  sm:px-6 sm:py-1.5 sm:text-1xl text-orange-50 duration-300 hover:bg-orange-500";
   const option =
     selectedOption === null
-      ? "my-1 w-60 cursor-pointer rounded-full bg-blue-900 px-3 text-center text-blue-50 outline-0 duration-200 hover:bg-blue-600 focus:bg-blue-600 active:pr-20 sm:w-60 sm:px-7 sm:py-2"
+      ? "my-2 sm:my-1 lg:py-3  lg:w-60 xl:w-60 cursor-pointer rounded-full bg-fuchsia-500 px-3 text-center text-blue-50 outline-0 duration-200 hover:bg-fuchsia-600 focus:bg-fuchsia-700 active:pr-20 sm:px-3 sm:py-1.5"
       : id === correctOption
-        ? "my-1 w-60 cursor-pointer rounded-full bg-green-700 px-3 text-center text-blue-50 outline-0 duration-200 active:pr-20 sm:w-60 sm:px-7 sm:py-2 disabled:cursor-not-allowed"
-        : "my-1 w-60 cursor-pointer rounded-full bg-red-600 px-3 text-center text-blue-50 outline-0 duration-200 active:pr-20 sm:w-60 sm:px-7 sm:py-2 disabled:cursor-not-allowed";
+        ? "my-2 sm:my-1 lg:py-3  cursor-pointer rounded-full bg-green-700 px-3 text-center text-blue-50 outline-0 duration-200 active:pr-20  sm:px-7 sm:py-1 disabled:cursor-not-allowed"
+        : "my-2 sm:my-0.5 lg:py-3  cursor-pointer rounded-full bg-red-600 px-3 text-center text-blue-50 outline-0 duration-200 active:pr-20  sm:px-7 sm:py-1 disabled:cursor-not-allowed";
 
   if (type === "option")
     return (
       <button
-        className={option}
+        className={`${option} py-0.5`}
         onClick={() => setSelectedOption(id)}
         id={id}
         disabled={selectedOption !== null}
@@ -30,7 +30,7 @@ function Button({
   if (type === "next")
     return (
       <button
-        className={`${base} absolute right-0 bottom-[-5rem]`}
+        className={`${base} mt-5 w-full sm:mt-0 sm:w-0`}
         onClick={onClick}
       >
         {children}

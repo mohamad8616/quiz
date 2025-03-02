@@ -5,7 +5,7 @@ function Header() {
   const userHighScore = localStorage.getItem("highScore");
 
   return (
-    <header className="h-auto bg-amber-50 px-7 py-7">
+    <header className="h-auto rounded-xl bg-stone-500 px-7 py-7 text-stone-50">
       <div className="flex flex-col items-center justify-between gap-4 space-y-2 divide-y divide-blue-400 text-start sm:flex-row sm:divide-x sm:divide-y-0">
         <section className="flex w-full items-center justify-between gap-3 pb-3 text-start text-sm sm:w-1/2 sm:px-2 sm:text-base">
           <span className="font-semibold">

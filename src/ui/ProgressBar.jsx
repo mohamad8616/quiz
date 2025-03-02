@@ -1,9 +1,13 @@
+import { useQuiz } from "../context/context";
+
 function ProgressBar() {
+  const { index, questions } = useQuiz();
+  const percent = (Number(index) / Number(questions.length - 1)) * 100;
   return (
-    <div className="mt-10 h-4 w-12/12 self-center rounded-full bg-gray-200">
+    <div className="h-4 w-full self-center rounded-full bg-gray-200 sm:w-8/12">
       <div
-        className="h-4 rounded-full bg-blue-600 transition-all duration-500"
-        style={{ width: "10%" }} // Adjust the width as needed
+        className="h-4 rounded-full bg-fuchsia-500 transition-all duration-500"
+        style={{ width: `${percent}%` }} // Adjust the width as needed
       ></div>
     </div>
   );
